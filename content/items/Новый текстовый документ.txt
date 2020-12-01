@@ -1,0 +1,6 @@
+type: material
+name: Piski
+description: Mozno otrezat y Sevi.
+hardness: 1
+cost: 2
+color: ffffff

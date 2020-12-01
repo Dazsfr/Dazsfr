@@ -1,0 +1,6 @@
+name: "dazsfr-mod"
+displayName: "[orange]Dazsfr[gold] Mod" //what displays in the mod selection menu
+author: "Dazsfr"
+description: "Muhahaha"
+version: "3.2"
+minGameVersion: "103"

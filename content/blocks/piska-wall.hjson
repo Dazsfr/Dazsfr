@@ -1,0 +1,10 @@
+name: Piska Wall
+description: Stena iz piski
+type: Wall
+health: 600
+size: 2
+requirements: [
+  piski/4
+]
+category: defense
+research: copper-wall
