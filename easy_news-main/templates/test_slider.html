@@ -1,0 +1,130 @@
+<html>
+    <head>
+        <style>
+            body{
+            overflow: hidden;
+            padding:0;
+            margin:0;
+            }
+            .scroll-left {
+            height: 100px;	
+            width: 100%;
+            bottom: 0px;
+            position: absolute;
+            background: darkred;
+            color: white;
+            }
+            .scroll-left p {
+            position: absolute;
+            min-width: 100%;
+            width: auto;
+            height: 100%;
+            margin: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            top:15px;
+            font-size:90px;
+            line-height: 50px;
+            text-align: left;
+            /* Starting position */
+            transform:translateX(100%);
+            /* Apply animation to this element */
+            }
+            /* Move it (define the animation) */
+            @keyframes scroll-left {
+            0%   {
+            transform: translateX(100%); 		
+            }
+            100% {
+            transform: translateX(-100%); 
+            }
+            }
+            .news_imgs{
+                width:100%;
+                height:800px;
+                object-fit: contain;
+            }
+        </style>
+        <style id="speed">
+            .scroll-left p {
+                animation: scroll-left 15s linear infinite;
+            }
+        </style>
+        <script type="text/javascript">
+            var cur_item = 0;
+            var itm_img = "";
+            var listr= [];
+            function loader(){
+                f()
+                t()
+                n()
+            }
+            function t() {
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "/get_time", false );
+                xmlHttp.send( null );
+                time_text.innerHTML = xmlHttp.responseText + " (Последние новости):"
+                setTimeout( t, 5000 );
+            }
+            function n(){
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "/get_news", false );
+                xmlHttp.send( null );
+                var list = xmlHttp.responseText.split(",");
+                listr = list
+                go_thr(list)
+                setTimeout( n, list.length*10000 );
+            }
+            function set_img(){
+                var element = itm_img
+                console.log("Setting element to "+element)
+                if (element == undefined){
+                    cur_item=2;
+                    itm_img=listr[0]
+                    new_pointer.innerHTML = "Новость "+(parseInt(cur_item)-1).toString()+" из "+listr.length;
+                    news_holder.src = itm_img;
+                }else{
+                    new_pointer.innerHTML = "Новость "+(parseInt(cur_item)-1).toString()+" из "+listr.length;
+                    news_holder.src = element;
+                }
+            }
+            function go_thr(list){
+                if (cur_item == list[list.length-1]){
+                    itm_img = 1;
+                    cur_item = ""
+                }
+                console.log("Going through "+cur_item+" "+itm_img+" on "+list[list.length-1])
+                if (cur_item == 0){
+                    cur_item = 1
+                    itm_img = list[0]
+                    set_img()
+                }
+                
+                itm_img = list[cur_item-1]
+                cur_item += 1;
+                set_img()
+            }
+            function f() {
+        
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.open( "GET", "/get_liveline", false );
+                xmlHttp.send( null );
+                scroll_text.innerHTML = xmlHttp.responseText
+                var leng = scroll_text.innerHTML.length / 5;
+                if (scroll_text.innerHTML.length < 30){
+                    leng = 20
+                }
+                speed.innerHTML = '.scroll-left p { animation: scroll-left '+leng.toString()+'s linear infinite; }';
+                setTimeout( f, 5000 );
+            }
+        </script>
+    </head>
+    <body onload='loader()'>
+        <div class="scroll-left">
+            <p id='scroll_text'></p>
+        </div>
+        <h1 style="text-align:center;font-size:50px;padding:0;margin:0;" id="time_text">00:00</h1>
+        <h1 style="text-align:center;font-size:40px;padding:0;margin:0;" id="new_pointer">Новость 1 из 3</h1>
+        <img id="news_holder" class="news_imgs">
+    </body>
+</html>
