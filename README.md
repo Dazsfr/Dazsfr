@@ -1,1 +1,1 @@
-![image](http://api.dazsfr.ru:5005/stats/8f01363a767574bd8cb8fd92ea0e3fb5)
+![image](https://gitcard.dazsfr.ru/stats/9c73d3d1c6416274ca2843e51f221af1)
