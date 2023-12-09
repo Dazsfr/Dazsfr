@@ -1,1 +1,1 @@
-![image](https://gitcard.dazsfr.ru/stats/9563981fc9c99bb2bd28e37ede6eb2ed)
+![image](https://github.com/Dazsfr/Dazsfr/assets/47669048/d1801159-de25-44b3-bf09-13f8f38714be)
